@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f7f9" />
+    <meta name="description" content="Compare Uniflow and FlowNotation on annotated C, entirely in your browser." />
+    <title>Uniflow — C editor</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script type="module" crossorigin src="./assets/index-shZ795NK.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DeZluqOX.css">
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <h1>Uniflow <span>C editor</span></h1>
+        <div class="analysis-status" id="analysis-status" role="status" aria-live="polite" data-state="checking">
+          <span class="status-icon" aria-hidden="true"></span>
+          <span id="status-text">Loading analyzer…</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="editor-panel" aria-label="C source editor">
+          <div class="editor-toolbar">
+            <div class="file-tab">
+              <span class="file-type" aria-hidden="true">C</span>
+              <span id="filename">example.c</span>
+              <span id="modified" class="modified" aria-label="Modified" hidden></span>
+            </div>
+            <div class="file-actions">
+              <label class="sr-only" for="examples">Load an example</label>
+              <select id="examples">
+                <option value="" selected>Examples</option>
+                <option value="leak">Leak through void *</option>
+                <option value="direct">Direct private leak</option>
+                <option value="safe">Allowed private flow</option>
+                <option value="multiple">Multiple leaks</option>
+              </select>
+              <button id="open-file" type="button">Open file</button>
+              <button id="download" type="button">Download</button>
+              <input id="file-input" type="file" accept=".c,.h,.txt,text/plain" hidden />
+            </div>
+          </div>
+          <div id="editor" aria-label="C source code"></div>
+        </section>
+
+        <div class="comparison-panels">
+          <section class="problems-panel" aria-labelledby="problems-title">
+            <div class="problems-header">
+              <h2 id="problems-title">Uniflow <span id="problem-count">0</span></h2>
+              <div class="analysis-meta">
+                <span id="analysis-time"></span>
+                <button id="retry" type="button" hidden>Retry analysis</button>
+              </div>
+            </div>
+            <div id="problems" aria-live="polite" aria-atomic="true">
+              <p class="empty-message">Loading analyzer…</p>
+            </div>
+          </section>
+          <section class="flow-panel" aria-labelledby="flow-title">
+            <div class="problems-header">
+              <h2 id="flow-title">FlowNotation <span id="flow-status" class="flow-status" data-state="checking">Checking…</span></h2>
+              <div class="analysis-meta">
+                <span id="flow-time"></span>
+                <button id="flow-retry" type="button" hidden>Retry check</button>
+              </div>
+            </div>
+            <div class="flow-body">
+              <p id="flow-summary" role="status" aria-live="polite">Loading FlowNotation…</p>
+              <details id="flow-details" hidden>
+                <summary>Messages</summary>
+                <pre id="flow-output"></pre>
+              </details>
+              <details id="flow-generated-details" hidden>
+                <summary>Translated C · compiler locations refer to this code</summary>
+                <pre id="flow-generated"></pre>
+              </details>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="status-bar">
+        <details id="scope-details">
+          <summary>About these checks <span aria-hidden="true">ⓘ</span></summary>
+          <div class="scope-popover">
+            <h2>Supported input</h2>
+            <p>Uniflow checks explicit flows against secrecy annotations in a subset of C. A passing result means no errors were found by Uniflow.</p>
+            <p>Supports integers, pointers, functions, casts, assignments, braced branches and loops, and <code>#requires</code>, <code>#param</code>, and <code>#return</code> annotations.</p>
+            <p>Arrays, structs, pointer arithmetic, function pointers, and preprocessor directives are unsupported. Flows conveyed only by choosing a branch are not tracked.</p>
+            <p>FlowNotation is the authors' Python prototype adapted to Python 3, checked with Clang in your browser. It has its own supported input and may be unable to check some Uniflow examples. Its compiler messages refer to translated code; it does not add squiggles.</p>
+            <p>Accepted means its compiler check completed without an alarm. Invalid input and failed translations are shown separately. <a href="flow/NOTICE.txt" target="_blank" rel="noopener">Attribution and adaptation details</a>.</p>
+          </div>
+        </details>
+        <span class="local-note">Analysis runs in your browser</span>
+        <span id="cursor-position">Ln 1, Col 1</span>
+      </footer>
+    </div>
+  </body>
+</html>

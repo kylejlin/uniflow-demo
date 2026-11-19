@@ -1,0 +1,38 @@
+Uniflow classroom comparison — third-party attribution
+
+FlowNotation: Darion Cassel, Yan Huang, and Limin Jia,
+“Uncovering Information Flow Policy Violations in C Programs,” ESORICS 2019.
+Source: https://github.com/flownotation/flownotation
+Pinned revision: 743c0a93942fd724a6713669c5a15ed739f2f366
+
+The Python modules are the authors' prototype, adapted for Python 3 using
+2to3 (print statements and dictionary iteration). Its bundled pycparser
+AST classes were regenerated using its own modified _ast_gen.py generator.
+Translation rules have not deliberately been changed. bridge.py supplies
+in-memory entry points in place of the file-editing/benchmarking CLI. Clang
+performs preprocessing and type checking; declarations for malloc/memcpy
+support the prototype's generated helper functions. This single-file demo
+declines annotated function prototypes and preprocessor directives instead
+of silently treating an incomplete translation as acceptance. Use function
+definitions for #param/#return annotations. No original-source locations
+are claimed for generated-code diagnostics.
+
+The FlowNotation repository has no top-level license statement. This copy
+is included at the user's direction for the classroom project. This notice
+does not assert a redistribution license for FlowNotation. Revisit reuse
+terms before publishing or distributing the project more broadly.
+
+pycparser 2.18: Eli Bendersky and contributors, BSD license.
+The bundled copy includes FlowNotation's AST extensions (parent pointers
+and named-child iteration). See pycparser-LICENSE.txt.
+
+Clang 8.0.1 and memfs: https://github.com/binji/wasm-clang
+Pinned upstream revision: 648c4a89997a351eef75cdaec3ef5b89d4937dec
+clang.wasm was reused from Zo/Fern's execute_c toolchain and matches that
+upstream artifact. clang.ts adapts the relevant memory, file-system, and
+WASI code from upstream shared.js, Copyright 2020 WebAssembly Community
+Group participants. See clang/LICENSE.apache and clang/LICENSE.llvm.
+
+Pyodide 0.27.7: https://github.com/pyodide/pyodide (Mozilla Public License 2.0).
+Served from the pinned npm distribution. Includes CPython and other
+third-party components; see the Pyodide project for their license notices.
